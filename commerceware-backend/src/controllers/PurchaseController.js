@@ -1,19 +1,17 @@
-const Product = require('../models/Product')
+const PromotionService = require('../services/PromotionService')
 
 class PurchaseController {
   async getDiscount (req, res) {
-    const { product, qtt } = req.body // incluir promotion
+    const { product, quantity } = req.body
+    var discount
 
-    const purchaseProduct = await Product.findById(product)
+    try {
+      discount = await PromotionService.getItemDiscount(product, quantity)
+    } catch (err) {
+      console.error(err)
+    }
 
-    const priceWithDiscount =
-      (qtt % 3) * purchaseProduct.price + Math.floor(qtt / 3) * 10
-    const discountValue = purchaseProduct.price * qtt - priceWithDiscount
-
-    return res.json({
-      discount: discountValue,
-      priceWithDiscount: priceWithDiscount
-    })
+    return res.json(discount)
   }
 }
 
