@@ -13,4 +13,8 @@ routes.post('/products', controllers.ProductController.store)
 routes.put('/products/:id', controllers.ProductController.update)
 routes.delete('/products/:id', controllers.ProductController.destroy)
 
+/**
+ * Purchase routes
+ */
+routes.get('/purchasediscount', controllers.PurchaseController.getDiscount)
 module.exports = routes
