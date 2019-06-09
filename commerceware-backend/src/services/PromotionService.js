@@ -1,20 +1,33 @@
 const Product = require('../models/Product')
-const Promotion3por10 = require('../models/Promotion/Promotion3por10')
+const Promotion3itemsBy10 = require('../models/Promotion/Promotion3itemsBy10')
 const PromotionBuy2Pay1 = require('../models/Promotion/PromotionBuy2Pay1')
+const promotionType = require('../enums/promotionType')
 
 class PromotionService {
   async getItemDiscount (product, quantity) {
     const purchaseProduct = await Product.findById(product)
 
-    const promo3por10 = new Promotion3por10(purchaseProduct, quantity)
-    const promoBuy2Pay1 = new PromotionBuy2Pay1(purchaseProduct, quantity)
+    const promo = this.createPromotion(
+      purchaseProduct,
+      quantity,
+      promotionType.BUY_2_PAY_1
+    )
 
-    const discountValue = promoBuy2Pay1.getDiscount()
-    const priceWithDiscount = promoBuy2Pay1.getPriceWithDiscount()
+    const discountValue = promo.getDiscount()
+    const priceWithDiscount = promo.getPriceWithDiscount()
 
     return {
       discount: discountValue,
       priceWithDiscount: priceWithDiscount
+    }
+  }
+
+  createPromotion (product, quantity, promotion) {
+    switch (promotion) {
+      case promotionType.THREE_BY_10:
+        return new Promotion3itemsBy10(product, quantity)
+      case promotionType.BUY_2_PAY_1:
+        return new PromotionBuy2Pay1(product, quantity)
     }
   }
 }

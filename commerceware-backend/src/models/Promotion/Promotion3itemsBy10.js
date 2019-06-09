@@ -1,6 +1,6 @@
 const Promotion = require('./Promotion')
 
-class Promotion3por10 extends Promotion {
+class Promotion3itemsBy10 extends Promotion {
   _doGetPriceWithDiscount () {
     const priceWithDiscount =
       (this._quantity % 3) * this._product.price +
@@ -9,4 +9,4 @@ class Promotion3por10 extends Promotion {
     return priceWithDiscount
   }
 }
-module.exports = Promotion3por10
+module.exports = Promotion3itemsBy10
