@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const Youch = require('youch')
 
 class App {
   constructor () {
@@ -9,6 +10,7 @@ class App {
     this.database()
     this.middlewares()
     this.routes()
+    this.exception()
   }
 
   database () {
@@ -23,6 +25,19 @@ class App {
 
   routes () {
     this.express.use(require('./src/routes/routes'))
+  }
+
+  exception () {
+    this.express.use(async (err, req, res, next) => {
+      if (process.env.NODE_ENV !== 'production') {
+        const youch = new Youch(err)
+        return res.json(await youch.toJSON())
+      }
+
+      return res
+        .status(err.status || 500)
+        .json({ error: 'Internal Server Error' })
+    })
   }
 }
 
