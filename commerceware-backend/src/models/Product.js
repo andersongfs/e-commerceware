@@ -9,6 +9,10 @@ const Product = new mongoose.Schema({
     type: Number,
     required: true
   },
+  promotion: {
+    type: Number,
+    required: false
+  },
   createdAt: {
     type: Date,
     default: Date.now

@@ -10,7 +10,7 @@ class PromotionService {
     const promo = this.createPromotion(
       purchaseProduct,
       quantity,
-      promotionType.BUY_2_PAY_1
+      purchaseProduct.promotion
     )
 
     const discountValue = promo.getDiscount()

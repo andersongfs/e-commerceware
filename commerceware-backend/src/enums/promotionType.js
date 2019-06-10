@@ -1,6 +1,6 @@
 const promotionType = {
-  THREE_BY_10: 1,
-  BUY_2_PAY_1: 2
+  THREE_BY_10: 0,
+  BUY_2_PAY_1: 1
 }
 
 module.exports = promotionType
