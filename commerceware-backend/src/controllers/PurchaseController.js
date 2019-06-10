@@ -8,7 +8,7 @@ class PurchaseController {
     try {
       discount = await PromotionService.getItemDiscount(product, quantity)
     } catch (err) {
-      console.error(err)
+      throw new Error(err)
     }
 
     return res.json(discount)
