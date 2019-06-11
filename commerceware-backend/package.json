@@ -5,7 +5,6 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon src/index.js",
-    "test": "set NODE_ENV=test && jest",
     "test-integration": "set \"NODE_ENV=test\" && mocha __tests__/integration-tests/ --timeout 10000 --exit"
   },
   "dependencies": {
