@@ -11,7 +11,7 @@ describe('GET /products', () => {
         price: product.price,
         promotion: product.promotion
       })
-    console.log(response.text.\"title\")
+
     expect(response.status).toBe(200)
     expect(response.text).toHaveProperty('title', product.title)
     expect(response.text).toHaveProperty('price', product.price)

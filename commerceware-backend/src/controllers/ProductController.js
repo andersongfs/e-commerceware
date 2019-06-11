@@ -12,11 +12,11 @@ class ProductController {
   }
 
   async store (req, res) {
-    const { title } = req.body
+    // const { title } = req.body
 
-    if (await Product.findOne({ title })) {
-      return res.status(400).json({ error: 'Product already exists' })
-    }
+    // if (await Product.findOne({ title })) {
+    //   return res.status(400).json({ error: 'Product already exists' })
+    // }
 
     const product = await Product.create(req.body)
     return res.json(product)
