@@ -2,10 +2,10 @@ const Joi = require('joi')
 
 module.exports = {
   body: {
-    title: Joi.string().required(),
+    title: Joi.string().optional(),
     price: Joi.number()
       .greater(0)
-      .required(),
+      .optional(),
     promotion: Joi.string()
       .allow(null)
       .optional()

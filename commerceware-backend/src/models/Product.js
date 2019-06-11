@@ -10,7 +10,7 @@ const Product = new mongoose.Schema({
     required: true
   },
   promotion: {
-    type: Number,
+    type: String,
     required: false
   },
   createdAt: {

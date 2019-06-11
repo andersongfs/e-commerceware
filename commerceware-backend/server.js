@@ -7,7 +7,6 @@ class App {
   constructor () {
     this.express = express()
     this.isDev = process.env.NODE_ENV !== 'production'
-
     this.database()
     this.middlewares()
     this.routes()
@@ -15,10 +14,17 @@ class App {
   }
 
   database () {
-    mongoose.connect(process.env.DATABASE_URI, {
-      useCreateIndex: true,
-      useNewUrlParser: true
-    })
+    if (process.env.NODE_ENV === 'test') {
+      mongoose.connect(process.env.DATABASE_TEST_URI, {
+        useCreateIndex: true,
+        useNewUrlParser: true
+      })
+    } else {
+      mongoose.connect(process.env.DATABASE_URI, {
+        useCreateIndex: true,
+        useNewUrlParser: true
+      })
+    }
   }
   middlewares () {
     this.express.use(express.json())
