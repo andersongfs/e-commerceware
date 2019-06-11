@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon src/index.js",
     "test": "set NODE_ENV=test && jest",
-    "test-integration": "set \"NODE_ENV=test\" && mocha __tests__/chai.test.js --timeout 10000 --exit"
+    "test-integration": "set \"NODE_ENV=test\" && mocha __tests__/integration-tests/ --timeout 10000 --exit"
   },
   "dependencies": {
     "chai": "^4.2.0",
@@ -28,8 +28,6 @@
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
-    "jest": "^24.8.0",
-    "nodemon": "^1.19.1",
-    "supertest": "^4.0.2"
+    "nodemon": "^1.19.1"
   }
 }
