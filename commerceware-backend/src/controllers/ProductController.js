@@ -1,4 +1,5 @@
 const Product = require('../models/Product')
+const PromotionService = require('../services/PromotionService')
 
 class ProductController {
   async index (req, res) {
@@ -8,18 +9,26 @@ class ProductController {
 
   async show (req, res) {
     const product = await Product.findById(req.params.id)
-    return res.json(product)
+
+    if (product) {
+      return res.status(200).json(product)
+    }
+    return res.status(404).json()
   }
 
   async store (req, res) {
-    // const { title } = req.body
+    const { promotion } = req.body
 
     // if (await Product.findOne({ title })) {
     //   return res.status(400).json({ error: 'Product already exists' })
     // }
-
+    if (promotion) {
+      if (!PromotionService.isValidPromotion(promotion)) {
+        return res.status(400).json({ error: 'invalid promotion' })
+      }
+    }
     const product = await Product.create(req.body)
-    return res.json(product)
+    return res.status(201).json(product)
   }
 
   async update (req, res) {

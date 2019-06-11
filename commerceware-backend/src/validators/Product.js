@@ -6,6 +6,6 @@ module.exports = {
     price: Joi.number()
       .greater(0)
       .required(),
-    promotion: Joi.number().optional()
+    promotion: Joi.string().optional()
   }
 }

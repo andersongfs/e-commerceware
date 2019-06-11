@@ -24,11 +24,18 @@ class PromotionService {
 
   createPromotion (product, quantity, promotion) {
     switch (promotion) {
-      case promotionType.THREE_BY_10:
+      case promotionType.THREE_BY_10.id:
         return new Promotion3itemsBy10(product, quantity)
-      case promotionType.BUY_2_PAY_1:
+      case promotionType.BUY_2_PAY_1.id:
         return new PromotionBuy2Pay1(product, quantity)
     }
+  }
+
+  isValidPromotion (promotion) {
+    if (promotionType[promotion]) {
+      return true
+    }
+    return false
   }
 }
 
