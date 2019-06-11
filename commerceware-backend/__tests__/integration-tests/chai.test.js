@@ -173,22 +173,6 @@ describe('/products', async () => {
         })
     })
 
-    it('should not create a new product w promotion null', done => {
-      const productMock = {
-        title: 'promotion null',
-        price: 100,
-        promotion: null
-      }
-      chai
-        .request(server)
-        .post('/products')
-        .send(productMock)
-        .end((err, res) => {
-          res.should.have.status(400)
-          done()
-        })
-    })
-
     it('should not create a new product w invalid promotion', done => {
       const productMock = {
         title: 'promotion null',
@@ -205,4 +189,112 @@ describe('/products', async () => {
         })
     })
   }) // end POST
+
+  describe('UPDATE', async () => {
+    it('should update with promotion null', done => {
+      const productMock = {
+        title: 'UPDATE product w/ promo',
+        price: 100,
+        promotion: null
+      }
+      chai
+        .request(server)
+        .put(`/products/${product1._id}`)
+        .send(productMock)
+        .end((err, res) => {
+          res.should.have.status(200)
+          res.body.title.should.equal(productMock.title)
+          res.body.price.should.equal(productMock.price)
+          should.equal(res.body.promotion, null)
+          done()
+        })
+    })
+
+    it('should update title', done => {
+      const productMock = {
+        title: 'UPDATE product'
+      }
+      chai
+        .request(server)
+        .put(`/products/${product1._id}`)
+        .send(productMock)
+        .end((err, res) => {
+          res.should.have.status(200)
+          res.body.title.should.equal(productMock.title)
+          res.body.price.should.equal(product1.price)
+          should.equal(res.body.promotion, product1.promotion)
+          done()
+        })
+    })
+
+    it('should update price', done => {
+      const productMock = {
+        price: 5
+      }
+      chai
+        .request(server)
+        .put(`/products/${product1._id}`)
+        .send(productMock)
+        .end((err, res) => {
+          res.should.have.status(200)
+          res.body.title.should.equal(product1.title)
+          res.body.price.should.equal(productMock.price)
+          should.equal(res.body.promotion, product1.promotion)
+          done()
+        })
+    })
+
+    it('should update promotion', done => {
+      const productMock = {
+        promotion: product2.promotion
+      }
+      chai
+        .request(server)
+        .put(`/products/${product1._id}`)
+        .send(productMock)
+        .end((err, res) => {
+          res.should.have.status(200)
+          res.body.title.should.equal(product1.title)
+          res.body.price.should.equal(product1.price)
+          should.equal(res.body.promotion, productMock.promotion)
+          done()
+        })
+    })
+
+    it('should throw error update title empty', done => {
+      const productMock = {
+        title: ''
+      }
+      chai
+        .request(server)
+        .put(`/products/${product1._id}`)
+        .send(productMock)
+        .end((err, res) => {
+          res.should.have.status(400)
+          done()
+        })
+    })
+  }) // UPDATE
+
+  describe('DELETE', async () => {
+    it('should delete existent product', done => {
+      chai
+        .request(server)
+        .delete(`/products/${product1._id}`)
+        .end((err, res) => {
+          res.should.have.status(204)
+          done()
+        })
+    })
+
+    it('should throw error deleting not existent product', done => {
+      chai
+        .request(server)
+        .delete('/products/321321321')
+        .end((err, res) => {
+          res.should.have.status(404)
+          done()
+        })
+    })
+  }) // end DELETE
 }) // end describe /products

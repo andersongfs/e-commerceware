@@ -24,7 +24,7 @@ class ProductController {
     // }
     if (promotion) {
       if (!PromotionService.isValidPromotion(promotion)) {
-        return res.status(400).json({ error: 'invalid promotion' })
+        return res.status(400).json({ error: 'Invalid promotion' })
       }
     }
     const product = await Product.create(req.body)
@@ -39,8 +39,16 @@ class ProductController {
   }
 
   async destroy (req, res) {
-    await Product.findByIdAndDelete(req.params.id)
-    return res.send()
+    try {
+      const product = await Product.findById(req.params.id)
+
+      if (product) {
+        await Product.remove()
+        return res.status(204).send()
+      }
+    } catch (err) {
+      return res.status(404).json({ error: 'Invalid product id' })
+    }
   }
 }
 module.exports = new ProductController()
