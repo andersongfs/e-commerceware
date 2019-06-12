@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ProductItem from "../../components/CardItem";
+import ProductItem from "../../components/Product/ProductItem";
 import api from "../../services/api";
 
 // import { Container } from './styles';
@@ -29,9 +29,7 @@ class ProductIndex extends Component {
     if (!loading) {
       return (
         <>
-          {data.map(item => {
-            return <ProductItem key={item._id} product={item} />;
-          })}
+          <h1>listagem de produtos</h1>
         </>
       );
     } else {
