@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import ProductItem from "../../components/Product/ProductItem";
 import api from "../../services/api";
+import "./styles.css";
+import { Table, Divider, Tag } from "antd";
+import { columns } from "./ProductIndexConfig";
 
 // import { Container } from './styles';
 
@@ -29,7 +32,8 @@ class ProductIndex extends Component {
     if (!loading) {
       return (
         <>
-          <h1>listagem de produtos</h1>
+          <h1>Products List</h1>
+          <Table columns={columns} dataSource={data} />
         </>
       );
     } else {
