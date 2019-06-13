@@ -7,6 +7,7 @@ import "./App.css";
 
 import Home from "./pages/Home/Home";
 import ProductIndex from "./pages/Product/ProductIndex";
+import Cart from "./pages/Cart/Cart";
 
 const { Header, Content, Footer } = Layout;
 
@@ -28,8 +29,8 @@ export default class App extends Component {
                 <Route exact path="/products" component={ProductIndex} />
                 {/* <Route exact path="/products/create" component={} />
                 <Route exact path="/products/show" component={} />
-                <Route exact path="/products/edit" component={} />
-                <Route exact path="/cart" component={} />} */}
+                <Route exact path="/products/edit" component={} /> */}
+                <Route exact path="/cart" component={Cart} />
               </div>
             </Content>
 

@@ -15,9 +15,7 @@ export default class Home extends Component {
     api
       .get("/products")
       .then(response => {
-        this.setState({ data: response.data, loading: false }, () => {
-          console.log(response);
-        });
+        this.setState({ data: response.data, loading: false }, () => {});
       })
       .catch(error => {
         console.dir(error);
@@ -33,7 +31,7 @@ export default class Home extends Component {
             <Row>
               {data.map(item => {
                 return (
-                  <Col span={6}>
+                  <Col key={item._id} span={6}>
                     {" "}
                     <ProductItem key={item._id} product={item} />{" "}
                   </Col>

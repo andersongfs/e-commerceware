@@ -32,7 +32,10 @@ class Navbar extends Component {
             </Menu.Item>
 
             <Menu.Item key="3" style={{ float: "right" }}>
-              <Icon type="shopping-cart" />
+              <Link to={"/cart"}>
+                {" "}
+                <Icon type="shopping-cart" />
+              </Link>
             </Menu.Item>
           </Menu>
         </Header>
