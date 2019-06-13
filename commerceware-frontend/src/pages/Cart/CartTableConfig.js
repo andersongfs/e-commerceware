@@ -25,7 +25,7 @@ export const columns = [
   },
   {
     title: "Quantity",
-    dataIndex: "qtt",
+    dataIndex: "quantity",
     align: "center",
     sorter: true,
     sortDirections: ["descend", "ascend"],
