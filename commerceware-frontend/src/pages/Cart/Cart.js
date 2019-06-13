@@ -18,17 +18,19 @@ const _cart = [
 
 class Cart extends Component {
   render() {
+    const products = Object.values(this.props.cart.products);
+    console.log(products);
     return (
       <>
         <h1>Cart</h1>
-        <Table columns={columns} dataSource={this.props.cart} pagination={false} />
+        <Table columns={columns} dataSource={products} pagination={false} />
       </>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  cart: state.cart,
+const mapStateToProps = store => ({
+  cart: store.cart,
 })
 
 Cart.propTypes = {
@@ -43,7 +45,6 @@ Cart.propTypes = {
       quantity: PropTypes.number
   })).isRequired,
 };
-
 
 
 

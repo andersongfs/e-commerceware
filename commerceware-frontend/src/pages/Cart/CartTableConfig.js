@@ -4,7 +4,7 @@ import { Divider, Icon, Button } from "antd";
 export const columns = [
   {
     title: "Product",
-    dataIndex: "product.title",
+    dataIndex: "title",
     align: "center",
     sorter: true,
     sortDirections: ["descend", "ascend"],
@@ -14,7 +14,7 @@ export const columns = [
 
   {
     title: "Promotion",
-    dataIndex: "product.promotion",
+    dataIndex: "promotion",
     align: "center",
     sorter: true,
     sortDirections: ["descend", "ascend"],
@@ -51,7 +51,8 @@ export const columns = [
       return (
         <>
           R$ {el}
-          <Icon type="delete" style={{ marginLeft: 10 }} />
+          <Button style={{ marginLeft: 10 }} shape="circle" icon="delete" onClick={() =>{}}/>
+
         </>
       );
     }
