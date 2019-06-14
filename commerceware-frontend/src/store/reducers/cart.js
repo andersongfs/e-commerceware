@@ -39,6 +39,20 @@ export default function cart(state = INITIAL_STATE, action) {
       delete state.products[idToRemove];
       return { ...state };
 
+    case "DECREASE_CART_ITEM":
+      const id = action.payload.product._id;
+      let product = state.products[id];
+
+      if (product.quantity < 2) {
+        delete state.products[id];
+        return { ...state };
+      }
+
+      const productAUX = { ...product, quantity: product.quantity - 1 };
+      const productsScp = { ...state.products };
+      productsScp[id] = productAUX;
+      return { ...state, products: productsScp };
+
     default:
       return state;
   }

@@ -9,7 +9,8 @@ import { Table, Divider, Tag } from "antd";
 import { columns } from "./CartTableConfig";
 
 class Cart extends Component {
-  increaseQuantity = el => _evento_react => {
+  increaseQuantity = el => _ => {
+    this.props.addCartItem(el);
     console.log(`aumentar 1 do item ${el._id}`);
   };
 
@@ -17,6 +18,7 @@ class Cart extends Component {
     // this.props.increaseQuantity(el)
     // action -> chamar reducer que vai mudar o estado, que volta pra cá no mapStateToProps
     console.log(`Diminuir 1 do item ${el._id}`);
+    this.props.decreaseCartItem(el);
   };
 
   removeItem = el => _ => {
