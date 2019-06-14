@@ -1,37 +1,49 @@
 import React, { Component } from "react";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
+
+import { bindActionCreators } from "redux";
+import * as CartActions from "../../store/actions/cart";
+
 import { Table, Divider, Tag } from "antd";
 import { columns } from "./CartTableConfig";
 
-// import { Container } from './styles';
-const _cart = [
-  {
-    product: { title: "celular", price: 10, promotion: "THREE_BY_10" },
-    quantity: 3
-  },
-  {
-    product: { title: "burguer", price: 10, promotion: "THREE_BY_10" },
-    quantity: 2
-  }
-];
-
 class Cart extends Component {
+  increaseQuantity = el => _evento_react => {
+    console.log(`aumentar 1 do item ${el._id}`);
+  };
+
+  decreaseQuantity = el => _ => {
+    // this.props.increaseQuantity(el)
+    // action -> chamar reducer que vai mudar o estado, que volta pra cá no mapStateToProps
+    console.log(`Diminuir 1 do item ${el._id}`);
+  };
+
+  removeItem = el => _ => {
+    this.props.removeCartItem(el);
+  };
+
   render() {
     const products = Object.values(this.props.cart.products);
-    console.log(products);
     return (
       <>
         <h1>Cart</h1>
-        <Table columns={columns} dataSource={products} pagination={false} />
+        <Table
+          columns={columns(this)}
+          dataSource={products}
+          pagination={false}
+        />
       </>
     );
   }
 }
 
-const mapStateToProps = store => ({
-  cart: store.cart,
-})
+const mapStateToProps = state => ({
+  cart: state.cart
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
 
 Cart.propTypes = {
   cart: PropTypes.arrayOf(
@@ -43,9 +55,11 @@ Cart.propTypes = {
         promotion: PropTypes.string
       }),
       quantity: PropTypes.number
-  })).isRequired,
+    })
+  ).isRequired
 };
 
-
-
-export default connect(mapStateToProps)(Cart)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Cart);
