@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors')
 const validate = require('express-validation')
 const Youch = require('youch')
 
@@ -27,6 +28,7 @@ class App {
     }
   }
   middlewares () {
+    this.express.use(cors())
     this.express.use(express.json())
   }
 
