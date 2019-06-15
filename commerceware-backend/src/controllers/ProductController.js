@@ -41,9 +41,8 @@ class ProductController {
   async destroy (req, res) {
     try {
       const product = await Product.findById(req.params.id)
-
       if (product) {
-        await Product.remove()
+        await product.remove()
         return res.status(204).send()
       }
     } catch (err) {

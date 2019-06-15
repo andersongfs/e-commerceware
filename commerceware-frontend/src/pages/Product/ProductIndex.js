@@ -13,6 +13,17 @@ class ProductIndex extends Component {
     loading: true
   };
 
+  removeItem = el => _ => {
+    api
+      .delete(`/products/${el._id}`)
+      .then(response => {
+        this.componentWillMount();
+      })
+      .catch(error => {
+        console.dir(error);
+      });
+  };
+
   componentWillMount() {
     api
       .get("/products")
@@ -39,7 +50,7 @@ class ProductIndex extends Component {
               New Product
             </Button>
           </Link>
-          <Table columns={columns} dataSource={data} />
+          <Table columns={columns(this)} dataSource={data} />
         </>
       );
     } else {

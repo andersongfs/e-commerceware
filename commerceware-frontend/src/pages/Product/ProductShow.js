@@ -13,7 +13,7 @@ class ProductShow extends Component {
   state = {
     title: "",
     price: "",
-    promotion: "",
+    promotion: undefined,
     errorMessage: ""
   };
 
@@ -30,6 +30,8 @@ class ProductShow extends Component {
     let { title, price, promotion } = this.state;
 
     if (!title.length) return;
+    if (!price) return;
+
     var config = {
       title: title,
       price: price,
@@ -46,8 +48,6 @@ class ProductShow extends Component {
   };
 
   onSelectChange = value => {
-    console.log(`selected ${value}`);
-    console.log(this);
     this.setState({ promotion: value });
   };
   async componentWillMount() {}
@@ -67,16 +67,14 @@ class ProductShow extends Component {
             />
           </Form.Item>
           <Form.Item>
-            <InputNumber
+            <Input
+              type="number"
               placeholder="price"
               name="price"
-              formatter={value =>
-                `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-              }
-              parser={value => value.replace(/\$\s?|(,*)/g, "")}
-              min={1}
+              min={0}
               value={this.state.price}
-              onChange={this.onChangePrice}
+              onChange={this.onChange}
+              required={true}
               style={{ width: 400 }}
             />
           </Form.Item>
