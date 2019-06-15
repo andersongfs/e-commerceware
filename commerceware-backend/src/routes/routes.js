@@ -33,7 +33,7 @@ routes.delete('/products/:id', handle(controllers.ProductController.destroy))
  * Purchase routes
  */
 routes.get(
-  '/purchasediscount',
+  '/purchasediscount/:id/:qtt',
   handle(controllers.PurchaseController.getDiscount)
 )
 module.exports = routes

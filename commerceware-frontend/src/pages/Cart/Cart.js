@@ -5,20 +5,18 @@ import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import * as CartActions from "../../store/actions/cart";
 
-import { Table, Divider, Tag } from "antd";
+import { Table } from "antd";
 import { columns } from "./CartTableConfig";
 
 class Cart extends Component {
-  increaseQuantity = el => _ => {
-    this.props.addCartItem(el);
-    console.log(`aumentar 1 do item ${el._id}`);
+  increaseQuantity = el => async _ => {
+    await this.props.addCartItem(el);
+    this.props.getDiscountRequest(this.props.cart.products[el._id]);
   };
 
-  decreaseQuantity = el => _ => {
-    // this.props.increaseQuantity(el)
-    // action -> chamar reducer que vai mudar o estado, que volta pra cá no mapStateToProps
-    console.log(`Diminuir 1 do item ${el._id}`);
-    this.props.decreaseCartItem(el);
+  decreaseQuantity = el => async _ => {
+    await this.props.decreaseCartItem(el);
+    this.props.getDiscountRequest(this.props.cart.products[el._id]);
   };
 
   removeItem = el => _ => {

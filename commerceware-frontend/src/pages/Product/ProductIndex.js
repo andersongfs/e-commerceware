@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import api from "../../services/api";
 import "./styles.css";
-import { Table, Divider, Tag, Button } from "antd";
+import { Table, Button } from "antd";
 import { withRouter, Link } from "react-router-dom";
 import { columns } from "./ProductIndexConfig";
 
