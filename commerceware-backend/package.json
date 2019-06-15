@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "test-integration": "set \"NODE_ENV=test\" && mocha __tests__/integration-tests/ --timeout 10000 --exit"
   },
   "dependencies": {
