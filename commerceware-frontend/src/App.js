@@ -1,15 +1,17 @@
 import React, { Component } from "react";
-import {Provider} from "react-redux";
+import { Provider } from "react-redux";
 import { BrowserRouter, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import { Layout, Menu, Breadcrumb, Icon } from "antd";
 
 import "./App.css";
-import store from "./store"
+import store from "./store";
 
 import Home from "./pages/Home/Home";
 import ProductIndex from "./pages/Product/ProductIndex";
 import Cart from "./pages/Cart/Cart";
+import ProductCreate from "./pages/Product/ProductCreate";
+import ProductEdit from "./pages/Product/ProductEdit";
 
 const { Header, Content, Footer } = Layout;
 
@@ -27,12 +29,18 @@ export default class App extends Component {
                   <Breadcrumb.Item>List</Breadcrumb.Item>
                   <Breadcrumb.Item>App</Breadcrumb.Item>
                 </Breadcrumb> */}
-                <div style={{ background: "#fff", padding: 24, minHeight: 380 }}>
+                <div
+                  style={{ background: "#fff", padding: 24, minHeight: 380 }}
+                >
                   <Route exact path="/" component={Home} />
                   <Route exact path="/products" component={ProductIndex} />
-                  {/* <Route exact path="/products/create" component={} />
-                  <Route exact path="/products/show" component={} />
-                  <Route exact path="/products/edit" component={} /> */}
+                  <Route
+                    exact
+                    path="/products/create"
+                    component={ProductCreate}
+                  />
+                  {/* <Route exact path="/products/show" component={} /> */}
+                  <Route exact path="/products/edit" component={ProductEdit} />
                   <Route exact path="/cart" component={Cart} />
                 </div>
               </Content>

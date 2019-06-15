@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { Row, Col } from "antd";
 import api from "../../services/api";
 import ProductItem from "../../components/Product/ProductItem";
 
 // import { Container } from './styles';
 
-export default class Home extends Component {
+class Home extends Component {
   state = {
     data: [],
     loading: true
@@ -46,3 +47,5 @@ export default class Home extends Component {
     }
   }
 }
+
+export default withRouter(Home);
