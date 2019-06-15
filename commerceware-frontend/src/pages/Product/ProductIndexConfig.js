@@ -39,7 +39,7 @@ const renderFunction = context => {
       key: "action",
       render: (text, row, record) => (
         <span>
-          <a href="javascript:;">Edit</a>
+          <a onClick={context.editItem(row)}>Edit</a>
           <Divider type="vertical" />
           <a onClick={context.removeItem(row)}>Delete</a>
         </span>

@@ -10,7 +10,8 @@ import store from "./store";
 import Home from "./pages/Home/Home";
 import ProductIndex from "./pages/Product/ProductIndex";
 import Cart from "./pages/Cart/Cart";
-import ProductShow from "./pages/Product/ProductShow";
+import ProductCreate from "./pages/Product/ProductCreate";
+import ProductEdit from "./pages/Product/ProductEdit";
 
 const { Header, Content, Footer } = Layout;
 
@@ -36,10 +37,10 @@ export default class App extends Component {
                   <Route
                     exact
                     path="/products/create"
-                    component={ProductShow}
+                    component={ProductCreate}
                   />
-                  {/* <Route exact path="/products/show" component={} />
-                  <Route exact path="/products/edit" component={} /> */}
+                  {/* <Route exact path="/products/show" component={} /> */}
+                  <Route exact path="/products/edit" component={ProductEdit} />
                   <Route exact path="/cart" component={Cart} />
                 </div>
               </Content>

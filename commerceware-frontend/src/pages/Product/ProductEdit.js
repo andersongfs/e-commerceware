@@ -9,25 +9,35 @@ function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
-class ProductShow extends Component {
+class ProductEdit extends Component {
   state = {
+    _id: "",
     title: "",
     price: "",
     promotion: undefined,
     errorMessage: ""
   };
 
+  async componentWillMount() {
+    if (this.props.location.state) {
+      const promotionProps = this.props.location.state.promotion;
+      this.setState({
+        ...this.state,
+        _id: promotionProps._id,
+        title: promotionProps.title,
+        price: promotionProps.price,
+        promotion: promotionProps.promotion
+      });
+    }
+  }
+
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onChangePrice = price => {
-    this.setState({ price: price });
-  };
-
   onSubmit = async e => {
     e.preventDefault();
-    let { title, price, promotion } = this.state;
+    let { _id, title, price, promotion } = this.state;
 
     if (!title.length) return;
     if (!price) return;
@@ -38,7 +48,7 @@ class ProductShow extends Component {
       promotion: promotion
     };
     api
-      .post("/products", config)
+      .put(`/products/${_id}`, config)
       .then(response => {
         this.props.history.goBack();
       })
@@ -48,9 +58,12 @@ class ProductShow extends Component {
   };
 
   onSelectChange = value => {
-    this.setState({ promotion: value });
+    if (value === "NO_PROMOTION") {
+      this.setState({ promotion: null });
+    } else {
+      this.setState({ promotion: value });
+    }
   };
-  async componentWillMount() {}
 
   render() {
     return (
@@ -84,6 +97,7 @@ class ProductShow extends Component {
               placeholder="Select a promotion"
               optionFilterProp="children"
               onChange={this.onSelectChange}
+              value={this.state.promotion}
               style={{ width: 400 }}
               filterOption={(input, option) =>
                 option.props.children
@@ -91,6 +105,7 @@ class ProductShow extends Component {
                   .indexOf(input.toLowerCase()) >= 0
               }
             >
+              <Option value="NO_PROMOTION">None</Option>
               <Option value="THREE_BY_10">Three by only $10,00</Option>
               <Option value="BUY_2_PAY_1">Buy 2 Pay 1</Option>
             </Select>
@@ -101,7 +116,7 @@ class ProductShow extends Component {
               htmlType="submit"
               className="login-form-button"
             >
-              Create
+              Save
             </Button>
           </Form.Item>
         </Form>
@@ -110,4 +125,4 @@ class ProductShow extends Component {
   }
 }
 
-export default withRouter(ProductShow);
+export default withRouter(ProductEdit);

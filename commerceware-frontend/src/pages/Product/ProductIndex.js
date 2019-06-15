@@ -13,6 +13,14 @@ class ProductIndex extends Component {
     loading: true
   };
 
+  editItem = el => e => {
+    this.props.history.push({
+      pathname: "/products/edit",
+      state: {
+        promotion: el
+      }
+    });
+  };
   removeItem = el => _ => {
     api
       .delete(`/products/${el._id}`)
@@ -29,8 +37,7 @@ class ProductIndex extends Component {
       .get("/products")
       .then(response => {
         this.setState({ data: response.data, loading: false }, () => {
-          console.log("response");
-          console.log(response);
+          console.log("Products loaded");
         });
       })
       .catch(error => {
@@ -59,4 +66,4 @@ class ProductIndex extends Component {
   }
 }
 
-export default ProductIndex;
+export default withRouter(ProductIndex);
