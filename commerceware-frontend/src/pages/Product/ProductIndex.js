@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import ProductItem from "../../components/Product/ProductItem";
 import api from "../../services/api";
 import "./styles.css";
-import { Table, Divider, Tag } from "antd";
+import { Table, Divider, Tag, Button } from "antd";
+import { withRouter, Link } from "react-router-dom";
 import { columns } from "./ProductIndexConfig";
 
 // import { Container } from './styles';
@@ -33,6 +33,12 @@ class ProductIndex extends Component {
       return (
         <>
           <h1>Products List</h1>
+          <Link to={"/products/create"}>
+            {" "}
+            <Button type="primary" size="large" style={{ marginBottom: 10 }}>
+              New Product
+            </Button>
+          </Link>
           <Table columns={columns} dataSource={data} />
         </>
       );
