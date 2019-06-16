@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
-import { Layout, Menu, Breadcrumb, Icon } from "antd";
+import { Layout } from "antd";
 
 import "./App.css";
 import store from "./store";
@@ -13,7 +13,7 @@ import Cart from "./pages/Cart/Cart";
 import ProductCreate from "./pages/Product/ProductCreate";
 import ProductEdit from "./pages/Product/ProductEdit";
 
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 
 export default class App extends Component {
   render() {

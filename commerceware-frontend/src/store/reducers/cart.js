@@ -1,20 +1,5 @@
 const INITIAL_STATE = {
-  products: {
-    "5d0110f5da5b163860cc6cbaXXX": {
-      _id: "5d0110f5da5b163860cc6cbaXXX",
-      title: "title",
-      price: 10,
-      promotion: "THREE_BY_10",
-      quantity: 1
-    },
-    "5d01110bda5b163860cc6cbb": {
-      _id: "5d01110bda5b163860cc6cbb",
-      title: "title2",
-      price: 50,
-      promotion: "THREE_BY_10",
-      quantity: 3
-    }
-  }
+  products: {}
 };
 
 export default function cart(state = INITIAL_STATE, action) {
@@ -27,7 +12,12 @@ export default function cart(state = INITIAL_STATE, action) {
       if (findProduct) {
         productCopy = { ...findProduct, quantity: findProduct.quantity + 1 };
       } else {
-        productCopy = { ...action.payload.product, quantity: 1 };
+        productCopy = {
+          ...action.payload.product,
+          quantity: 1,
+          discount: 0,
+          priceWithDiscount: action.payload.product.price
+        };
       }
 
       const productScope = { ...state.products };
@@ -53,6 +43,19 @@ export default function cart(state = INITIAL_STATE, action) {
       productsScp[id] = productAUX;
       return { ...state, products: productsScp };
 
+    case "GET_DISCOUNT_SUCCESS":
+      const pid = action.payload.productDiscount._id;
+      const p = state.products[pid];
+      const paux = {
+        ...p,
+        discount: action.payload.productDiscount.discount,
+        priceWithDiscount: action.payload.productDiscount.priceWithDiscount
+      };
+
+      const pscp = { ...state.products };
+      pscp[pid] = paux;
+
+      return { ...state, products: pscp };
     default:
       return state;
   }

@@ -2,7 +2,8 @@ const PromotionService = require('../services/PromotionService')
 
 class PurchaseController {
   async getDiscount (req, res) {
-    const { product, quantity } = req.body
+    const product = req.params.id
+    const quantity = req.params.qtt
     var discount
 
     try {

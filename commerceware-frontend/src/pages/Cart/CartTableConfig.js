@@ -1,5 +1,5 @@
 import React from "react";
-import { Divider, Icon, Button } from "antd";
+import { Button } from "antd";
 const renderFunction = context => {
   return [
     {
@@ -51,8 +51,8 @@ const renderFunction = context => {
       }
     },
     {
-      title: "Value per Item",
-      dataIndex: "price",
+      title: "Price",
+      dataIndex: "priceWithDiscount",
       align: "center",
       sorter: true,
       sortDirections: ["descend", "ascend"],

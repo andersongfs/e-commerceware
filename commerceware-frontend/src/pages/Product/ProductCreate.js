@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { Form, Button, Input, InputNumber, Select } from "antd";
+import { Form, Button, Input, Select } from "antd";
 import api from "../../services/api";
 
 const { Option } = Select;
-
-function hasErrors(fieldsError) {
-  return Object.keys(fieldsError).some(field => fieldsError[field]);
-}
 
 class ProductCreate extends Component {
   state = {
