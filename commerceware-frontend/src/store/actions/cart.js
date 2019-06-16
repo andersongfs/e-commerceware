@@ -22,3 +22,8 @@ export const getDiscountSuccess = productDiscount => ({
   type: "GET_DISCOUNT_SUCCESS",
   payload: { productDiscount }
 });
+
+export const finishOrder = () => ({
+  type: "FINISH_ORDER",
+  payload: {}
+});

@@ -43,6 +43,9 @@ export default function cart(state = INITIAL_STATE, action) {
       productsScp[id] = productAUX;
       return { ...state, products: productsScp };
 
+    case "FINISH_ORDER":
+      return INITIAL_STATE;
+
     case "GET_DISCOUNT_SUCCESS":
       const pid = action.payload.productDiscount._id;
       const p = state.products[pid];
