@@ -1,11 +1,19 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { Layout, Menu, Icon } from "antd";
+import { Layout, Menu, Icon, Button, Badge } from "antd";
+
 const { Header } = Layout;
 
-// import { Container } from './styles';
-
 class Navbar extends Component {
+  getQttItems = () => {
+    const products = Object.values(this.props.cart.products);
+    var qtt = products.reduce((sum, product) => {
+      return sum + product.quantity;
+    }, 0);
+    return qtt;
+  };
+
   render() {
     return (
       <>
@@ -33,8 +41,10 @@ class Navbar extends Component {
 
             <Menu.Item key="3" style={{ float: "right" }}>
               <Link to={"/cart"}>
-                {" "}
-                <Icon type="shopping-cart" />
+                <Badge count={this.getQttItems()} overflowCount={10}>
+                  {" "}
+                  <Button icon="shopping-cart" ghost />
+                </Badge>
               </Link>
             </Menu.Item>
           </Menu>
@@ -43,4 +53,9 @@ class Navbar extends Component {
     );
   }
 }
-export default withRouter(Navbar);
+
+const mapStateToProps = state => ({
+  cart: state.cart
+});
+
+export default connect(mapStateToProps)(withRouter(Navbar));
