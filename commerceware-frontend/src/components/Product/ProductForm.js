@@ -1,77 +1,59 @@
 import React, { Component } from "react";
-import { Form, Button, Input, Icon, Select } from "antd";
+import { Form, Button, Input, InputNumber, Select } from "antd";
 const { Option } = Select;
 
-function hasErrors(fieldsError) {
-  return Object.keys(fieldsError).some(field => fieldsError[field]);
-}
-
 export default class ProductForm extends Component {
-  state = {
-    title: "",
-    price: "",
-    promotion: "",
-    errorMessage: ""
-  };
-
-  onChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  onSubmit = async e => {
-    e.preventDefault();
-    let { title, price, promotion } = this.state;
-    console.log(title, price, promotion);
-
-    if (!title.length) return;
-    //        this.props.loginUser({username, password}, this.props.history)
-  };
-
-  onSelectChange = value => {
-    console.log(`selected ${value}`);
-    console.log(this);
-    this.setState({ promotion: value });
-  };
-  async componentWillMount() {}
-
   render() {
     return (
       <div className="login-wrapper">
-        <Form onSubmit={this.onSubmit} className="login-form">
-          <Form.Item>
+        <Form onSubmit={this.props.context.onSubmit} className="login-form">
+          <Form.Item label="Title">
             <Input
-              prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
               placeholder="title"
               name="title"
-              value={this.state.title}
-              onChange={this.onChange}
+              value={this.props.context.state.title}
+              onChange={this.props.context.onChange}
               required={true}
+              style={{ width: 400 }}
             />
           </Form.Item>
-          <Form.Item>
-            <Input
-              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+          <Form.Item label="Price">
+            <InputNumber
+              value={this.props.context.state.price}
               placeholder="price"
-              name="price"
-              value={this.state.price}
-              onChange={this.onChange}
+              min={0}
+              max={10}
+              step={0.1}
+              onChange={this.props.context.onChangePrice}
+              required={true}
+              style={{ width: 400 }}
             />
           </Form.Item>
-          <Form.Item>
+          <Form.Item label="Promotion">
             <Select
               showSearch
-              style={{ width: 200 }}
               placeholder="Select a promotion"
               optionFilterProp="children"
-              onChange={this.onSelectChange}
+              onChange={this.props.context.onSelectChange}
+              value={this.props.context.state.promotion}
+              style={{ width: 400 }}
               filterOption={(input, option) =>
                 option.props.children
                   .toLowerCase()
                   .indexOf(input.toLowerCase()) >= 0
               }
             >
-              <Option value="promotion 1">Promotion 1</Option>
-              <Option value="promotion 2">Promotion 2</Option>
+              <Option value="NO_PROMOTION">None</Option>
+
+              {Object.values(this.props.context.state.allPromotions).map(
+                promo => {
+                  return (
+                    <Option key={promo.id} value={promo.id}>
+                      {promo.name}
+                    </Option>
+                  );
+                }
+              )}
             </Select>
           </Form.Item>
           <Form.Item>
@@ -80,7 +62,7 @@ export default class ProductForm extends Component {
               htmlType="submit"
               className="login-form-button"
             >
-              Login
+              Create
             </Button>
           </Form.Item>
         </Form>
@@ -88,7 +70,3 @@ export default class ProductForm extends Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  auth: state.auth
-});

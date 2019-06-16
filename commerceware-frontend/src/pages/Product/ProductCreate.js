@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { Form, Button, Input, Select } from "antd";
+import { Form, Button, Input, InputNumber, Select } from "antd";
 import api from "../../services/api";
+import apiRequests from "../../services/apiRequests";
+import ProductForm from "../../components/Product/ProductForm";
 
 const { Option } = Select;
 
@@ -10,6 +12,7 @@ class ProductCreate extends Component {
     title: "",
     price: "",
     promotion: undefined,
+    allPromotions: {},
     errorMessage: ""
   };
 
@@ -44,63 +47,28 @@ class ProductCreate extends Component {
   };
 
   onSelectChange = value => {
-    this.setState({ promotion: value });
+    if (value === "NO_PROMOTION") {
+      this.setState({ promotion: null });
+    } else {
+      this.setState({ promotion: value });
+    }
   };
-  async componentWillMount() {}
+
+  componentWillMount() {
+    api
+      .get("/promotions")
+      .then(response => {
+        this.setState({ allPromotions: response.data });
+      })
+      .catch(error => {
+        console.dir(error);
+      });
+  }
 
   render() {
     return (
-      <div className="login-wrapper">
-        <Form onSubmit={this.onSubmit} className="login-form">
-          <Form.Item>
-            <Input
-              placeholder="title"
-              name="title"
-              value={this.state.title}
-              onChange={this.onChange}
-              required={true}
-              style={{ width: 400 }}
-            />
-          </Form.Item>
-          <Form.Item>
-            <Input
-              type="number"
-              placeholder="price"
-              name="price"
-              min={0}
-              value={this.state.price}
-              onChange={this.onChange}
-              required={true}
-              style={{ width: 400 }}
-            />
-          </Form.Item>
-          <Form.Item>
-            <Select
-              showSearch
-              placeholder="Select a promotion"
-              optionFilterProp="children"
-              onChange={this.onSelectChange}
-              style={{ width: 400 }}
-              filterOption={(input, option) =>
-                option.props.children
-                  .toLowerCase()
-                  .indexOf(input.toLowerCase()) >= 0
-              }
-            >
-              <Option value="THREE_BY_10">Three by only $10,00</Option>
-              <Option value="BUY_2_PAY_1">Buy 2 Pay 1</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-            >
-              Create
-            </Button>
-          </Form.Item>
-        </Form>
+      <div className="create-wrapper">
+        <ProductForm context={this} />
       </div>
     );
   }

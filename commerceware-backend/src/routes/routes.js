@@ -36,4 +36,10 @@ routes.get(
   '/purchasediscount/:id/:qtt',
   handle(controllers.PurchaseController.getDiscount)
 )
+
+/**
+ * Promotion routes
+ */
+routes.get('/promotions', handle(controllers.PromotionController.index))
+
 module.exports = routes

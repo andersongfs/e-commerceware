@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { Form, Button, Input, Select } from "antd";
+import { Form, Button, Input, InputNumber, Select } from "antd";
 import api from "../../services/api";
+import ProductForm from "../../components/Product/ProductForm";
 
 const { Option } = Select;
 
@@ -11,12 +12,15 @@ class ProductEdit extends Component {
     title: "",
     price: "",
     promotion: undefined,
+    allPromotions: {},
     errorMessage: ""
   };
 
   async componentWillMount() {
     if (this.props.location.state) {
       const promotionProps = this.props.location.state.promotion;
+      this.loadPromotions();
+
       this.setState({
         ...this.state,
         _id: promotionProps._id,
@@ -29,6 +33,10 @@ class ProductEdit extends Component {
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onChangePrice = price => {
+    this.setState({ price: price });
   };
 
   onSubmit = async e => {
@@ -61,61 +69,21 @@ class ProductEdit extends Component {
     }
   };
 
+  loadPromotions() {
+    api
+      .get("/promotions")
+      .then(response => {
+        this.setState({ allPromotions: response.data });
+      })
+      .catch(error => {
+        console.dir(error);
+      });
+  }
+
   render() {
     return (
-      <div className="login-wrapper">
-        <Form onSubmit={this.onSubmit} className="login-form">
-          <Form.Item>
-            <Input
-              placeholder="title"
-              name="title"
-              value={this.state.title}
-              onChange={this.onChange}
-              required={true}
-              style={{ width: 400 }}
-            />
-          </Form.Item>
-          <Form.Item>
-            <Input
-              type="number"
-              placeholder="price"
-              name="price"
-              min={0}
-              value={this.state.price}
-              onChange={this.onChange}
-              required={true}
-              style={{ width: 400 }}
-            />
-          </Form.Item>
-          <Form.Item>
-            <Select
-              showSearch
-              placeholder="Select a promotion"
-              optionFilterProp="children"
-              onChange={this.onSelectChange}
-              value={this.state.promotion}
-              style={{ width: 400 }}
-              filterOption={(input, option) =>
-                option.props.children
-                  .toLowerCase()
-                  .indexOf(input.toLowerCase()) >= 0
-              }
-            >
-              <Option value="NO_PROMOTION">None</Option>
-              <Option value="THREE_BY_10">Three by only $10,00</Option>
-              <Option value="BUY_2_PAY_1">Buy 2 Pay 1</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-            >
-              Save
-            </Button>
-          </Form.Item>
-        </Form>
+      <div className="edit-wrapper">
+        <ProductForm context={this} />
       </div>
     );
   }
