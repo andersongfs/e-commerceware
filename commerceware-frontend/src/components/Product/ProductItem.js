@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {bindActionCreators} from 'redux'
-import * as CartActions from "../../store/actions/cart"
+import { bindActionCreators } from "redux";
+import * as CartActions from "../../store/actions/cart";
 
-import { Card, Icon, Avatar } from "antd";
+import { Card, Button } from "antd";
 const { Meta } = Card;
-
-// import { Container } from './styles';
-const LOCAL_STORAGE_CART_KEY = "@commerceware:cart";
 
 class ProductItem extends Component {
   handleDescription = () => {
@@ -43,7 +40,15 @@ class ProductItem extends Component {
             src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
           />
         }
-        actions={[<Icon type="shopping-cart" onClick={() => this.props.addCartItem(product)} />]}
+        actions={[
+          <Button
+            type="primary"
+            icon="shopping-cart"
+            onClick={() => this.props.addCartItem(product)}
+            block
+            ghost
+          />
+        ]}
       >
         <Meta
           // avatar={
@@ -58,10 +63,13 @@ class ProductItem extends Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart,
-})
+  cart: state.cart
+});
 
-const mapDispatchToProps = dispatch => bindActionCreators(CartActions, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProductItem)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProductItem);
