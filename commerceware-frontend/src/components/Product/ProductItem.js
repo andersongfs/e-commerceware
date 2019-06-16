@@ -8,6 +8,11 @@ import { Card, Button } from "antd";
 const { Meta } = Card;
 
 class ProductItem extends Component {
+  addCartItem = async product => {
+    await this.props.addCartItem(product);
+    this.props.getDiscountRequest(this.props.cart.products[product._id]);
+  };
+
   handleDescription = () => {
     const { product } = this.props;
     if (product.promotion) {
@@ -44,7 +49,7 @@ class ProductItem extends Component {
           <Button
             type="primary"
             icon="shopping-cart"
-            onClick={() => this.props.addCartItem(product)}
+            onClick={() => this.addCartItem(product)}
             block
             ghost
           />
