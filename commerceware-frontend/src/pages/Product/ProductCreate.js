@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { Form, Button, Input, InputNumber, Select } from "antd";
 import api from "../../services/api";
-import apiRequests from "../../services/apiRequests";
 import ProductForm from "../../components/Product/ProductForm";
-
-const { Option } = Select;
 
 class ProductCreate extends Component {
   state = {

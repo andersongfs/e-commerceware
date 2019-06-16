@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import * as CartActions from "../../store/actions/cart";
 
-import { Card, Button } from "antd";
+import { Card, Button, Icon } from "antd";
 const { Meta } = Card;
 
 class ProductItem extends Component {
@@ -19,18 +19,14 @@ class ProductItem extends Component {
       return (
         <>
           <div>
-            <strong>R$ {product.price} </strong>
+            <b>R$ {product.price} </b>
           </div>
-
-          <strong>{product.promotion}</strong>
+          <Icon type="tag" style={{ marginRight: 10 }} />
+          <b>{product.promotion}</b>
         </>
       );
     } else {
-      return (
-        <>
-          <strong>R$ {product.price} </strong>
-        </>
-      );
+      return <b>R$ {product.price} </b>;
     }
   };
 
