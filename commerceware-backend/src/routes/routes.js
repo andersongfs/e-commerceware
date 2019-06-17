@@ -30,16 +30,12 @@ routes.put(
 routes.delete('/products/:id', handle(controllers.ProductController.destroy))
 
 /**
- * Purchase routes
- */
-routes.get(
-  '/purchasediscount/:id/:qtt',
-  handle(controllers.PurchaseController.getDiscount)
-)
-
-/**
  * Promotion routes
  */
 routes.get('/promotions', handle(controllers.PromotionController.index))
 
+routes.get(
+  '/purchasediscount/:id/:qtt',
+  handle(controllers.PromotionController.getDiscount)
+)
 module.exports = routes
