@@ -48,7 +48,7 @@ DATABASE_TEST_URI=mongodb+srv://<db_app>:<db_app_pass>@cluster-otvlq.mongodb.net
 ---
 #### Docs
 
-- [Postman Collection](https://documenter.getpostman.com/view/2610877/S1ZxbV9u)
+- [Postman Collection](https://documenter.getpostman.com/view/2610877/S1ZxbV9u?version=latest#9819cd52-1748-4e33-a16f-ffafcc63f513)
 
 ## Frontend
 ---
