@@ -64,17 +64,20 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(CartActions, dispatch);
 
 Cart.propTypes = {
-  cart: PropTypes.arrayOf(
-    PropTypes.shape({
+  cart: PropTypes.shape({
+    products: PropTypes.shape({
       product: PropTypes.shape({
         _id: PropTypes.string,
         title: PropTypes.string,
         price: PropTypes.number,
-        promotion: PropTypes.string
+        promotion: PropTypes.shape({
+          id: PropTypes.string,
+          name: PropTypes.string
+        })
       }),
       quantity: PropTypes.number
     })
-  ).isRequired
+  }).isRequired
 };
 
 export default connect(

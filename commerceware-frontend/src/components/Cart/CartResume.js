@@ -53,6 +53,23 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(CartActions, dispatch);
 
+CartResume.propTypes = {
+  cart: PropTypes.shape({
+    products: PropTypes.shape({
+      product: PropTypes.shape({
+        _id: PropTypes.string,
+        title: PropTypes.string,
+        price: PropTypes.number,
+        promotion: PropTypes.shape({
+          id: PropTypes.string,
+          name: PropTypes.string
+        })
+      }),
+      quantity: PropTypes.number
+    })
+  }).isRequired
+};
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

@@ -43,7 +43,9 @@ class Navbar extends Component {
               <Link to={"/cart"}>
                 <Badge count={this.getQttItems()} overflowCount={10}>
                   {" "}
-                  <Button icon="shopping-cart" ghost />
+                  <Button icon="shopping-cart" ghost>
+                    My Cart
+                  </Button>
                 </Badge>
               </Link>
             </Menu.Item>

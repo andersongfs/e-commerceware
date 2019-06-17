@@ -19,14 +19,14 @@ class ProductItem extends Component {
       return (
         <>
           <div>
-            <b>R$ {product.price} </b>
+            <b>$ {product.price} </b>
           </div>
           <Icon type="tag" style={{ marginRight: 10 }} />
           <b>{product.promotion.name}</b>
         </>
       );
     } else {
-      return <b>R$ {product.price} </b>;
+      return <b>$ {product.price} </b>;
     }
   };
 
@@ -38,7 +38,7 @@ class ProductItem extends Component {
         cover={
           <img
             alt="example"
-            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy9cWUMYBZHQ4KEnoRksOLiAMXOmfO1hEEQIANvpMQIntpVzFH"
           />
         }
         actions={[
@@ -48,7 +48,9 @@ class ProductItem extends Component {
             onClick={() => this.addCartItem(product)}
             block
             ghost
-          />
+          >
+            Buy Now
+          </Button>
         ]}
       >
         <Meta
@@ -69,6 +71,23 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(CartActions, dispatch);
+
+ProductItem.propTypes = {
+  cart: PropTypes.shape({
+    products: PropTypes.shape({
+      product: PropTypes.shape({
+        _id: PropTypes.string,
+        title: PropTypes.string,
+        price: PropTypes.number,
+        promotion: PropTypes.shape({
+          id: PropTypes.string,
+          name: PropTypes.string
+        })
+      }),
+      quantity: PropTypes.number
+    })
+  }).isRequired
+};
 
 export default connect(
   mapStateToProps,

@@ -46,7 +46,7 @@ export default class App extends Component {
               </Content>
 
               <Footer style={{ textAlign: "center" }}>
-                Ant Design ©2018 Created by Ant UED
+                Commerceware ©2019
               </Footer>
             </Layout>
           </BrowserRouter>

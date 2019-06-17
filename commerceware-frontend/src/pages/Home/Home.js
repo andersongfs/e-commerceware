@@ -29,7 +29,7 @@ class Home extends Component {
       return (
         <>
           <div>
-            <Row>
+            <Row type="flex" justify="start">
               {data.map(item => {
                 return (
                   <Col key={item._id} span={6}>
