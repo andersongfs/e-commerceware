@@ -1,5 +1,5 @@
 import React from "react";
-import { Divider } from "antd";
+import { Divider, Button } from "antd";
 
 const renderFunction = context => {
   return [
@@ -20,12 +20,12 @@ const renderFunction = context => {
       sortDirections: ["descend", "ascend"],
       defaultSortOrder: "descend",
       render: el => {
-        return <p>R$ {el}</p>;
+        return <p>$ {el}</p>;
       }
     },
     {
       title: "Promotion",
-      dataIndex: "promotion",
+      dataIndex: "promotion.name",
       align: "center",
       sorter: true,
       sortDirections: ["descend", "ascend"],
@@ -39,9 +39,13 @@ const renderFunction = context => {
       key: "action",
       render: (text, row, record) => (
         <span>
-          <a onClick={context.editItem(row)}>Edit</a>
+          <Button type="link" onClick={context.editItem(row)}>
+            Edit
+          </Button>
           <Divider type="vertical" />
-          <a onClick={context.removeItem(row)}>Delete</a>
+          <Button type="link" onClick={context.removeItem(row)}>
+            Delete
+          </Button>
         </span>
       )
     }

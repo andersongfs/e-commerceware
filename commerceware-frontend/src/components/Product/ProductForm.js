@@ -21,8 +21,7 @@ export default class ProductForm extends Component {
             <InputNumber
               value={this.props.context.state.price}
               placeholder="price"
-              min={0}
-              max={10}
+              min={0.1}
               step={0.1}
               onChange={this.props.context.onChangePrice}
               required={true}

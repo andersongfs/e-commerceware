@@ -5,7 +5,20 @@ const promotionType = require('../enums/promotionType')
 
 class PromotionService {
   async getItemDiscount (product, quantity) {
-    const purchaseProduct = await Product.findById(product)
+    var purchaseProduct
+    try {
+      purchaseProduct = await Product.findById(product)
+    } catch (err) {
+      return { error: 'Invalid product id' }
+    }
+    const promotion = purchaseProduct.promotion
+
+    if (!promotion || promotion == null) {
+      return {
+        discount: 0,
+        priceWithDiscount: purchaseProduct.price * quantity
+      }
+    }
 
     const promo = this.createPromotion(
       purchaseProduct,

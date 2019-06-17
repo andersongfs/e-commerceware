@@ -1,10 +1,16 @@
 const Product = require('../models/Product')
 const PromotionService = require('../services/PromotionService')
+const PromotionType = require('../enums/promotionType')
 
 class ProductController {
   async index (req, res) {
-    const product = await Product.find()
-    return res.json(product)
+    const products = await Product.find()
+    var nested = products.map(function (p) {
+      return p.promotion
+        ? { ...p._doc, promotion: PromotionType[p.promotion] }
+        : { ...p._doc }
+    })
+    return res.json(nested)
   }
 
   async show (req, res) {

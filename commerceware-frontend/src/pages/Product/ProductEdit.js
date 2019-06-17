@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { Form, Button, Input, InputNumber, Select } from "antd";
 import api from "../../services/api";
 import ProductForm from "../../components/Product/ProductForm";
-
-const { Option } = Select;
 
 class ProductEdit extends Component {
   state = {
@@ -18,15 +15,17 @@ class ProductEdit extends Component {
 
   async componentWillMount() {
     if (this.props.location.state) {
-      const promotionProps = this.props.location.state.promotion;
+      const productProps = this.props.location.state.product;
       this.loadPromotions();
 
       this.setState({
         ...this.state,
-        _id: promotionProps._id,
-        title: promotionProps.title,
-        price: promotionProps.price,
-        promotion: promotionProps.promotion
+        _id: productProps._id,
+        title: productProps.title,
+        price: productProps.price,
+        promotion: productProps.promotion
+          ? productProps.promotion.id
+          : undefined
       });
     }
   }

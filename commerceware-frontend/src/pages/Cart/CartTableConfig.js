@@ -14,7 +14,7 @@ const renderFunction = context => {
 
     {
       title: "Promotion",
-      dataIndex: "promotion",
+      dataIndex: "promotion.name",
       align: "center",
       sorter: true,
       sortDirections: ["descend", "ascend"],
@@ -66,7 +66,9 @@ const renderFunction = context => {
       key: "action",
       render: (text, row, record) => (
         <span>
-          <a onClick={context.removeItem(row)}>Delete</a>
+          <Button type="link" onClick={context.removeItem(row)}>
+            Delete
+          </Button>
         </span>
       )
     }

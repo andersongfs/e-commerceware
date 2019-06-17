@@ -17,7 +17,7 @@ class ProductIndex extends Component {
     this.props.history.push({
       pathname: "/products/edit",
       state: {
-        promotion: el
+        product: el
       }
     });
   };

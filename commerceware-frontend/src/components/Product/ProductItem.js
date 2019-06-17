@@ -22,7 +22,7 @@ class ProductItem extends Component {
             <b>R$ {product.price} </b>
           </div>
           <Icon type="tag" style={{ marginRight: 10 }} />
-          <b>{product.promotion}</b>
+          <b>{product.promotion.name}</b>
         </>
       );
     } else {
